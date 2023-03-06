@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <title>Homework #4: Global Development - CSE 578 - Fall 2022</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" />  
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css"/>  
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js"></script>
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <script src="js/main.js"></script>
+        <style>
+        .myContainer {
+            margin:auto;
+            width:1510px;
+        }
+        #graph {
+            float:left;
+            height: 750px;
+            width:1200px;
+            padding:10px;
+        }
+        #control {
+            float:right;        
+            width:300px;
+            height:750px;
+            padding: 10px;
+
+        }
+        #graph_svg {
+            width: 1175px;
+            height:650px;
+            margin: 3px;
+            background-color: white;
+            border: 1px solid lightgray;
+            border-radius: 3px;
+        }
+        #gindicator {
+            width: 70%;
+        }
+        .checkboxholder{
+            margin-left: 10px           ;
+        }
+        
+        </style>
+    </head>
+    <body>
+        <div class="myContainer">
+            <h1 class="text-center">Homework #4: Global Development</h1>
+            <h3 class="text-center">Tanisha Tembhre - ttembhre@asu.edu</h3>
+            <hr>
+            <div id="graph" class="border border-dark rounded">
+                <div class="row">
+                    <div class="col-5">
+                        <label for='gindicaor'>Global Indicator: </label>
+                        <select id="gindicator" name="gindicator" onchange="updateGraph()">s
+                        </select>
+                    </div>
+                    <div class="col">
+                        <div class="form-check form-switch float-center">
+                            <input class="form-check-input" type="checkbox" id="countryflag">
+                            <label for="form-check-label">Show Flags</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="float-end">
+                            <label for="opa">Opacity:</label> 
+                            <input type='range' id="opa" name="vol" min="20" max="100" value="100" onchange="updateOpacity(this.value)">
+                        </div>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col">
+                        <svg id="graph_svg"></svg>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col mt-2">
+                        <button type="button" class="btn btn-primary btn-floating" onclick="play()">
+                            <span class="bi bi-play"></i>
+                        </button>
+                    </div>
+                    <div class="col">
+                        <div class="float-end">
+                            <span class="span4">1980&nbsp;&nbsp;</span> 
+                            <input id="ex2" type="text" class="span2" data-slider-min="1980" data-slider-max="2013" data-slider-step="1" data-slider-value="[1980,2013]"/>
+                            <span>&nbsp;&nbsp;2013</span>
+                        </div>
+                    </div>
+                    
+                    <div class="col-2">
+                        <button type="button" class="btn btn-primary" onclick="updateXAxis()">Update years</button>
+                    </div>
+                </div>
+            </div>
+            <div id="control" class="border border-dark rounded">
+                <h5>Regions:</h5>
+                <div id = "regioncheckbox" class="checkboxholder">
+                </div>
+            </div>
+        </div>
+    </body>
+</html> 
