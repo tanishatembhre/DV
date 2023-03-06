@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <title>Data Vis project</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link crossorigin="" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+          integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+          rel="stylesheet"/>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script crossorigin=""
+            integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+            src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-map/3.0-rc1/jquery.ui.map.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-tag-cloud.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
+    defer></script> -->
+
+    <script src="js/map.js"></script>
+    <script src="js/PanelA.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-tag-cloud.min.js"></script>
+    <script src="js/PanelC.js"></script>
+    <script src="js/PanelD.js"></script>
+    <script src="js/PanelF.js"></script>
+    <script src="js/PanelE.js"></script>
+    <link rel="stylesheet" href="index.css">
+    <style>
+
+
+        .myContainer {
+            margin:auto;
+            width: 1500px;
+            height: 800px;
+            display: grid;
+            gap: 2px;
+            grid-template-columns: 400px 350px 350px 400px;
+            grid-template-rows: 400px 400px;
+        }
+
+        #panelA {
+            grid-column-start: 1;
+            grid-column-end: 2;
+            grid-row-start: 1;
+            grid-row-end: 3;
+        }
+
+        #panelB {
+            grid-column-start: 2;
+            grid-column-end: 4;
+            grid-row-start: 1;
+            grid-row-end: 2;
+        }
+
+        #panelC {
+            grid-column-start: 2;
+            grid-column-end: 3;
+            grid-row-start: 2;
+            grid-row-end: 3;
+        }
+
+        #panelD {
+            grid-column-start: 3;
+            grid-column-end: 4;
+            grid-row-start: 2;
+            grid-row-end: 3;
+        }
+
+        #panelE {
+            grid-column-start: 4;
+            grid-column-end: 5;
+            grid-row-start: 1;
+            grid-row-end: 2;
+        }
+
+        #panelF {
+            grid-column-start: 4;
+            grid-column-end: 5;
+            grid-row-start: 2;
+            grid-row-end: 3;
+
+        }
+        #panelA_svg {
+            width: 100%;
+            height: 100%;
+            margin: auto;
+            display: flex;
+            background-color: white;
+            border: 1px solid lightgray;
+            border-radius: 3px;
+            overflow: visible;
+        }
+
+        #panelA_svg_legend {
+            width: 100%;
+            height: 100%;
+            margin: auto;
+            display: flex;
+            background-color: white;
+            border: 1px solid lightgray;
+            border-radius: 3px;
+            overflow: visible;
+        }
+
+        #panelB_svg {
+            width: 100%;
+            height: 100%;
+            margin: auto;
+            display: flex;
+            background-color: white;
+            border: 1px solid lightgray;
+            border-radius: 3px;
+        }
+
+        #panelC_svg {
+            width: 100%;
+            height: 100%;
+            margin: auto;
+            display: flex;
+            background-color: white;
+            border: 1px solid lightgray;
+            border-radius: 3px;
+        }
+
+        #panelD_svg {
+            width: 100%;
+            height: 100%;
+            margin: auto;
+            display: flex;
+            background-color: white;
+            border: 1px solid lightgray;
+            border-radius: 3px;
+        }
+
+        #panelE_svg {
+            width: 100%;
+            height: 100%;
+            margin: auto;
+            display: flex;
+            background-color: white;
+            border: 1px solid lightgray;
+            border-radius: 3px;
+        }
+
+        #panelF_svg {
+            width: 100%;
+            height: 100%;
+            margin: auto;
+            display: flex;
+            background-color: white;
+            border: 1px solid lightgray;
+            border-radius: 3px;
+        }
+
+        #map {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            margin: auto;
+            display: flex;
+            background-color: white;
+            border: 1px solid lightgray;
+            border-radius: 3px;
+        }
+
+        #panelE {
+            overflow: auto;
+        }
+
+        div.tooltip-panelA-solid {
+            position: absolute;
+            text-align: left;
+            width: 100px;
+            height: 20px;
+            padding: 2px;
+            vertical-align: middle;
+            font: 12px sans-serif;
+            background: white;
+            border: 2px;
+            border-color: black;
+            border-radius: 8px;
+            border-style: solid;
+            pointer-events: none;
+        }
+
+        div.tooltip-dotted {
+            position: absolute;
+            text-align: left;
+            width: 150px;
+            height: 100px;
+            padding: 2px;
+            vertical-align: middle;
+            font: 12px sans-serif;
+            background: white;
+            border: 2px;
+            border-color: black;
+            border-radius: 8px;
+            border-style: solid;
+            pointer-events: none;
+        }
+
+        .legends {
+            position: absolute;
+
+        }
+
+        .leaflet-marker-icon, .leaflet-marker-shadow, .leaflet-image-layer, .leaflet-pane > svg path, .leaflet-tile-container {
+            pointer-events: auto;
+        }
+
+        .leaflet-pane > svg g {
+            pointer-events: auto;
+        }
+
+        #map.leaflet-pane > svg circle {
+            pointer-events: auto;
+        }
+
+        div.tooltip {
+            position: absolute;
+            text-align: center;
+            width: 135px;
+            height: 40px;
+            padding: 5px;
+            font: 12px sans-serif;
+            background-color: white;
+            border: 1px solid black;
+            border-radius: 8px;
+        }
+
+        .leaflet-control-attribution {
+            display: none;
+        }
+
+        #panelA_graph {
+            height: 760px;
+            overflow: scroll;
+        }
+
+        #panelA_graph_legend {
+            height: 40px;
+        }
+        .pointer {
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+
+<body>
+    <br>
+    <br>
+<h2 class="text-center">CrystalBall Interface</h2>
+<br>
+
+<div class="myContainer">
+    <div class="border border-dark rounded bg-light shadow-sm" id="panelA">
+        <div id="panelA_graph">
+            <div id="panelA_graph_cap">
+                <svg id="panelA_svg"></svg>
+            </div>
+        </div>
+        <div id="panelA_graph_legend">
+            <svg id="panelA_svg_legend"></svg>
+        </div>
+    </div>
+    <div class="border border-dark rounded bg-light shadow-sm" id="panelB">
+        <div id="map"></div>
+    </div>
+    <div class="border border-dark rounded bg-light shadow-sm" id="panelC">
+    </div>
+    <div class="border border-dark rounded bg-light shadow-sm" id="panelD">
+        <svg id="panelD_svg"></svg>
+    </div>
+    <div class="border border-dark rounded bg-light shadow-sm" id="panelE">
+        <!--                <svg id="panelE_svg"></svg>-->
+
+    </div>
+    <div class="border border-dark rounded bg-light shadow-sm" id="panelF">
+        Location &nbsp; <select aria-label="Attribute" id="country_f" onchange="drawBarGraph(value)"></select>
+        <br>
+        <svg id="panelF_svg" style="height:373px;"></svg>
+    </div>
+</div>
+</body>
+</html> 
